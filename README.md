@@ -1,4 +1,4 @@
-# RESTfull-api-dev-env
+# RESTful-api-dev-env
 
 
-Demo RESTFull api
+Demo RESTful api
