@@ -32,7 +32,7 @@ lionRouter.route('/')
   
     lions.push(lion);
   
-    res.json(lion);
+    res.status(201).json(lion);
   }
 );
 
@@ -41,7 +41,7 @@ lionRouter.route('/:id')
     var lion = req.lion;
     res.json(lion || {});
   })
-  .post(function(req, res) {
+  .put(function(req, res) {
     var update = req.body;
     if (update.id) {
       delete update.id
@@ -58,6 +58,7 @@ lionRouter.route('/:id')
   .delete(function(req, res){ /* eslint-disable-line no-unused-vars */
     var lion = _.findIndex(lions, {id: req.params.id});
     lions.splice(lion, 1);
+    res.json(req.lion);
   });
 
 module.exports = lionRouter;

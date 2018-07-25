@@ -20,5 +20,4 @@ app.use(function(err, req, res, next){ /* eslint-disable-line no-unused-vars */
   }
 });
 
-app.listen(3000);
-console.log('on port 3000'); /* eslint-disable-line no-console */
+module.exports = app;

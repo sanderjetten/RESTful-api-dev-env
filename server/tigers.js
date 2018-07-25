@@ -32,7 +32,7 @@ tigerRouter.route('/')
   
     tigers.push(tiger);
   
-    res.json(tiger);
+    res.status(201).json(tiger);
   }
 );
 
@@ -41,7 +41,7 @@ tigerRouter.route('/:id')
     var tiger = req.tiger;
     res.json(tiger || {});
   })
-  .post(function(req, res) {
+  .put(function(req, res) {
     var update = req.body;
     if (update.id) {
       delete update.id
@@ -58,6 +58,7 @@ tigerRouter.route('/:id')
   .delete(function(req, res){ /* eslint-disable-line no-unused-vars */
     var tiger = _.findIndex(tigers, {id: req.params.id});
     tigers.splice(tiger, 1);
+    res.json(req.tiger);
   });
 
 module.exports = tigerRouter;
