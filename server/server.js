@@ -1,23 +1,15 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var app = express();
-var morgan = require('morgan');
-var lionRouter = require('./lions');
-var tigerRouter = require('./tigers');
+var api = require('./api/api');
+var err = require('./middleware/err');
 
-app.use(morgan('dev'))
-app.use(express.static('client'));
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+// setup the app middlware
+require('./middleware/appMiddlware')(app);
 
-app.use('/lions', lionRouter);
-app.use('/tigers', tigerRouter);
+// setup the api
+app.use('/api', api);
+// set up global error handling
+app.use(err);
 
-app.use(function(err, req, res, next){ /* eslint-disable-line no-unused-vars */
-  if(err){
-    console.log(err.message); /* eslint-disable-line no-console */
-    res.status(500).send(err);
-  }
-});
-
+// export the app for testing
 module.exports = app;
