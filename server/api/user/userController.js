@@ -18,6 +18,8 @@ exports.params = function(req, res, next, id) {
 
 exports.get = function(req, res, next) {
   User.find({})
+    .select('-password')
+    .exec()
     .then(function(users){
       res.json(users);
     }, function(err){
@@ -51,7 +53,7 @@ exports.post = function(req, res, next) {
 
   newUser.save(function(err, user){
     if(err){
-      next(err);
+      return next(err);
     }
     var token = signToken(user._id);
     res.json({token: token});
@@ -67,3 +69,7 @@ exports.delete = function(req, res, next) {
     }
   });
 };
+
+exports.me = function(req, res, next){
+  res.json(req.user.toJson());
+}
